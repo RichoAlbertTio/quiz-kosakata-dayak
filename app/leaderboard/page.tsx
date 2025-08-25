@@ -33,6 +33,7 @@ export default async function LeaderboardPage() {
       createdAt: quizAttempts.createdAt,
       userName: users.name,
       userEmail: users.email,
+      userRole: users.role,
       quizTitle: quizzes.title,
     })
     .from(quizAttempts)
@@ -55,6 +56,7 @@ export default async function LeaderboardPage() {
           <TableRow>
             <TableHead>#</TableHead>
             <TableHead>Nama</TableHead>
+            <TableHead>Role</TableHead>
             <TableHead>Kuis</TableHead>
             <TableHead>Skor</TableHead>
             <TableHead>Durasi</TableHead>
@@ -64,7 +66,7 @@ export default async function LeaderboardPage() {
         <TableBody>
           {rows.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={6} className="text-center py-10">
+              <TableCell colSpan={7} className="text-center py-10">
                 Belum ada data. Ayo kerjakan kuis pertama kamu!
               </TableCell>
             </TableRow>
@@ -73,6 +75,9 @@ export default async function LeaderboardPage() {
               <TableRow key={r.id}>
                 <TableCell>{i + 1}</TableCell>
                 <TableCell>{r.userName || r.userEmail}</TableCell>
+                <TableCell>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${r.userRole === "ADMIN" ? "bg-red-100 text-red-800" : "bg-blue-100 text-blue-800"}`}>{r.userRole}</span>
+                </TableCell>
                 <TableCell>{r.quizTitle}</TableCell>
                 <TableCell>
                   <span className="font-medium">{r.score}</span>/{r.total}

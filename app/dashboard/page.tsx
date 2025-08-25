@@ -27,7 +27,10 @@ export default async function UserDashboardPage() {
               <Link href="/materials" className="hover:underline">
                 Materi
               </Link>
-              <Link href="/play/quiz/1" className="hover:underline">
+              <Link href="/leaderboard" className="hover:underline">
+                Leaderboard
+              </Link>
+              <Link href="/quiz" className="hover:underline">
                 Kuis
               </Link>
             </nav>
@@ -50,9 +53,15 @@ export default async function UserDashboardPage() {
             </Link>
           </li>
           <li>
-            <Link className="block rounded-lg border p-4 hover:bg-accent transition" href="/play/quiz/1">
+            <Link className="block rounded-lg border p-4 hover:bg-accent transition" href="/leaderboard">
+              <div className="font-medium">Leaderboard</div>
+              <div className="opacity-70">Lihat peringkat peserta.</div>
+            </Link>
+          </li>
+          <li>
+            <Link className="block rounded-lg border p-4 hover:bg-accent transition" href="/quiz">
               <div className="font-medium">Kuis</div>
-              <div className="opacity-70">Ikuti kuis contoh.</div>
+              <div className="opacity-70">Pilih dan kerjakan kuis.</div>
             </Link>
           </li>
         </ul>

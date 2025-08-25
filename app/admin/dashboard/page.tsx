@@ -15,7 +15,7 @@ export default async function AdminDashboardPage() {
         <p className="text-sm opacity-70">Kelola konten aplikasi.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link className="rounded-lg border p-4 hover:bg-accent transition" href="/admin/categories">
           <div className="font-medium">Kategori</div>
           <div className="text-sm opacity-70">Tambah, ubah, dan hapus kategori.</div>
@@ -27,6 +27,10 @@ export default async function AdminDashboardPage() {
         <Link className="rounded-lg border p-4 hover:bg-accent transition" href="/admin/quizzes">
           <div className="font-medium">Kuis</div>
           <div className="text-sm opacity-70">Buat dan kelola kuis.</div>
+        </Link>
+        <Link className="rounded-lg border p-4 hover:bg-accent transition" href="/leaderboard">
+          <div className="font-medium">Leaderboard</div>
+          <div className="text-sm opacity-70">Lihat peringkat peserta.</div>
         </Link>
       </div>
     </div>

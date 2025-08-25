@@ -16,9 +16,10 @@ function Search({ q }: { q?: string }) {
   );
 }
 
-export default async function MaterialsPage({ searchParams }: { searchParams?: { q?: string; cat?: string } }) {
-  const q = searchParams?.q?.trim() ?? "";
-  const cat = searchParams?.cat?.trim() ?? "";
+export default async function MaterialsPage({ searchParams }: { searchParams?: Promise<{ q?: string; cat?: string }> }) {
+  const params = await searchParams;
+  const q = params?.q?.trim() ?? "";
+  const cat = params?.cat?.trim() ?? "";
 
   const where = [eq(materials.published, true)];
   if (q) where.push(ilike(materials.title, `%${q}%`));

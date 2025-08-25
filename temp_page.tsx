@@ -26,7 +26,10 @@ export default async function QuizPlayPage({ params }: { params: Promise<{ id: s
   const existingAttempt = await db
     .select()
     .from(quizAttempts)
-    .where(and(eq(quizAttempts.userId, session.user.id), eq(quizAttempts.quizId, quizId)))
+    .where(and(
+      eq(quizAttempts.userId, session.user.id),
+      eq(quizAttempts.quizId, quizId)
+    ))
     .limit(1);
 
   if (existingAttempt.length > 0) {
@@ -56,16 +59,16 @@ export default async function QuizPlayPage({ params }: { params: Promise<{ id: s
   const quizData = {
     id: quiz.id,
     title: quiz.title,
-    description: quiz.description || "",
+    description: quiz.description,
     questions: qs.map((q) => {
       const questionChoices = shuffle(allChoices.filter((ch) => ch.questionId === q.id));
       return {
         id: q.id,
         question: q.prompt,
-        options: questionChoices.map((choice) => choice.text),
-        correctAnswer: 0, // This will be handled during submission
+        options: questionChoices.map(choice => choice.text),
+        correctAnswer: 0 // This will be handled during submission
       };
-    }),
+    })
   };
 
   return <QuizPlayer quiz={quizData} />;
