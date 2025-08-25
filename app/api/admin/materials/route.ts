@@ -1,13 +1,11 @@
 // app/api/admin/materials/route.ts
 import { NextRequest } from "next/server";
-import { getToken, type JWT } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { materials } from "@/lib/db/schema";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
-
-type CustomJWT = JWT & { id?: number; role?: "ADMIN" | "USER" };
 
 const Body = z.object({
   title: z.string().min(1),
@@ -18,9 +16,11 @@ const Body = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const token = (await getToken({ req, secret: process.env.NEXTAUTH_SECRET! })) as CustomJWT | null;
-  if (!token || token.role !== "ADMIN" || !token.id) return new Response("Forbidden", { status: 403 });
-  const uid = Number(token.id);
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") {
+    return new Response("Forbidden", { status: 403 });
+  }
+  const uid = session.user.id;
 
   const body = await req.json();
   const data = Body.parse(body);

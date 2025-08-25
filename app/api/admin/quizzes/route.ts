@@ -1,13 +1,11 @@
 // app/api/admin/quizzes/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getToken, type JWT } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { quizzes, questions, choices } from "@/lib/db/schema";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
-
-type CustomJWT = JWT & { id?: number; role?: "ADMIN" | "USER" };
 
 const ChoiceZ = z.object({ text: z.string().min(1), isCorrect: z.boolean().default(false) });
 const QuestionZ = z.object({
@@ -25,8 +23,10 @@ const BodyZ = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const token = (await getToken({ req, secret: process.env.NEXTAUTH_SECRET! })) as CustomJWT | null;
-  if (!token || token.role !== "ADMIN") return new Response("Forbidden", { status: 403 });
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") {
+    return new Response("Forbidden", { status: 403 });
+  }
 
   const data = BodyZ.parse(await req.json());
 
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       title: data.title,
       description: data.description,
       categoryId: data.categoryId,
-      authorId: token.id!,
+      authorId: session.user.id,
       published: data.published,
     })
     .returning();
@@ -59,8 +59,10 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   // Optional: list quizzes (admin only)
-  const token = (await getToken({ req, secret: process.env.NEXTAUTH_SECRET! })) as CustomJWT | null;
-  if (!token || token.role !== "ADMIN") return new Response("Forbidden", { status: 403 });
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") {
+    return new Response("Forbidden", { status: 403 });
+  }
 
   const list = await db.select().from(quizzes);
   return NextResponse.json(list);

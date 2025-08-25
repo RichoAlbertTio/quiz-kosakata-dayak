@@ -1,0 +1,11 @@
+user :
+richo@gmail.com
+richo123
+
+andy@gmail.com
+andy123
+
+
+admin :
+admin@lexi.local
+admin123

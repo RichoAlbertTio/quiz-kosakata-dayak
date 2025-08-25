@@ -1,14 +1,12 @@
 // app/api/admin/quizzes/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getToken, type JWT } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { quizzes, questions, choices } from "@/lib/db/schema";
 import { asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
-
-type CustomJWT = JWT & { id?: number; role?: "ADMIN" | "USER" };
 
 const ChoiceZ = z.object({ text: z.string().min(1), isCorrect: z.boolean().default(false) });
 const QuestionZ = z.object({
@@ -25,15 +23,17 @@ const BodyZ = z.object({
   questions: z.array(QuestionZ).min(1),
 });
 
-async function requireAdmin(req: NextRequest): Promise<CustomJWT> {
-  const token = (await getToken({ req, secret: process.env.NEXTAUTH_SECRET! })) as CustomJWT | null;
-  if (!token || token.role !== "ADMIN") throw new Error("FORBIDDEN");
-  return token;
+async function requireAdmin() {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") {
+    throw new Error("FORBIDDEN");
+  }
+  return session;
 }
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    await requireAdmin(req);
+    await requireAdmin();
   } catch {
     return new Response("Forbidden", { status: 403 });
   }
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    await requireAdmin(req);
+    await requireAdmin();
   } catch {
     return new Response("Forbidden", { status: 403 });
   }
@@ -94,7 +94,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    await requireAdmin(req);
+    await requireAdmin();
   } catch {
     return new Response("Forbidden", { status: 403 });
   }
