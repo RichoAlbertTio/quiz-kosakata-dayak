@@ -18,7 +18,7 @@ export default async function UserDashboardPage() {
       <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Link href="/dashboard" className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
               Quiz Dayak
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -48,12 +48,12 @@ export default async function UserDashboardPage() {
           {/* Welcome Section */}
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full">
+              <div className="p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-full">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                 Dashboard Pengguna
               </h1>
             </div>
@@ -178,7 +178,7 @@ export default async function UserDashboardPage() {
           </div>
 
           {/* Motivational Quote */}
-          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-2xl">
+          <Card className="bg-gradient-to-r from-green-600 to-blue-600 text-white border-0 shadow-2xl">
             <CardContent className="p-8 text-center">
               <div className="text-4xl mb-4">💫</div>
               <blockquote className="text-xl font-medium mb-4">

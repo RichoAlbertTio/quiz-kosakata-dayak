@@ -80,7 +80,7 @@ export default async function LeaderboardPage() {
       <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
               {isAdmin ? "Admin" : "Quiz Dayak"}
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -141,7 +141,7 @@ export default async function LeaderboardPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
                 </svg>
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                 Leaderboard
               </h1>
               <div className="p-3 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full">
@@ -213,7 +213,7 @@ export default async function LeaderboardPage() {
 
           {/* Full Leaderboard Table */}
           <Card className="shadow-xl border-0 overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            <CardHeader className="bg-gradient-to-r from-green-600 to-blue-600 text-white">
               <CardTitle className="text-2xl font-bold text-center">
                 🏆 Rangking Lengkap
               </CardTitle>
@@ -232,7 +232,6 @@ export default async function LeaderboardPage() {
                       <TableHead className="font-bold text-slate-700">Kuis</TableHead>
                       <TableHead className="font-bold text-slate-700 text-center">Skor</TableHead>
                       <TableHead className="font-bold text-slate-700 text-center">%</TableHead>
-                      <TableHead className="font-bold text-slate-700 text-center">Durasi</TableHead>
                       <TableHead className="font-bold text-slate-700 text-center">Tanggal</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -295,9 +294,7 @@ export default async function LeaderboardPage() {
                               {getScorePercentage(r.score, r.total)}%
                             </div>
                           </TableCell>
-                          <TableCell className="text-center font-mono text-sm bg-slate-50 rounded-md">
-                            ⏱️ {fmtDuration(r.durationS)}
-                          </TableCell>
+                          
                           <TableCell className="text-center text-sm text-slate-600">
                             {fmtDate(r.createdAt as unknown as string)}
                           </TableCell>
@@ -312,7 +309,7 @@ export default async function LeaderboardPage() {
 
           {/* Stats Summary */}
           {rows.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
               <Card className="text-center bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
                 <CardContent className="p-6">
                   <div className="text-3xl font-bold text-blue-600 mb-2">{rows.length}</div>
@@ -327,14 +324,7 @@ export default async function LeaderboardPage() {
                   <div className="text-sm font-medium text-green-700">Rata-rata Skor</div>
                 </CardContent>
               </Card>
-              <Card className="text-center bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-                <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
-                    {fmtDuration(Math.round(rows.reduce((acc, r) => acc + r.durationS, 0) / rows.length))}
-                  </div>
-                  <div className="text-sm font-medium text-purple-700">Waktu Rata-rata</div>
-                </CardContent>
-              </Card>
+             
             </div>
           )}
         </div>

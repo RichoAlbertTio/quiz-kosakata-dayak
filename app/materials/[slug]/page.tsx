@@ -129,8 +129,8 @@ export default async function MaterialDetail({ params }: { params: Promise<{ slu
       <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {isAdmin ? "Admin" : "Lexi Dayak"}
+            <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              {isAdmin ? "Admin" : "Quiz Dayak"}
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
               {isAdmin ? (
@@ -194,8 +194,8 @@ export default async function MaterialDetail({ params }: { params: Promise<{ slu
           </nav>
 
           {/* Header Card */}
-          <Card className="shadow-xl border-0 overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+          <Card className="bg-gradient-to-r from-green-600 to-blue-600 shadow-xl border-0 overflow-hidden">
+            <CardHeader className="text-white py-5">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-white/20 rounded-xl">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,7 +266,7 @@ export default async function MaterialDetail({ params }: { params: Promise<{ slu
                   </Link>
                   {!isAdmin && (
                     <Link href="/quiz">
-                      <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                      <Button className="bg-gradient-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700">
                         Uji Pemahaman
                         <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

@@ -45,7 +45,7 @@ export default async function QuizListPage({ searchParams }: { searchParams?: Pr
       <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
               {isAdmin ? "Admin" : "Quiz Dayak"}
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -101,12 +101,12 @@ export default async function QuizListPage({ searchParams }: { searchParams?: Pr
           {/* Header Section */}
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full">
+              <div className="p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-full">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                 Kuis Interaktif
               </h1>
             </div>
@@ -294,14 +294,14 @@ export default async function QuizListPage({ searchParams }: { searchParams?: Pr
                           </div>
                           <div className="flex flex-col gap-2">
                             {isCompleted ? (
-                              <Button disabled variant="outline" size="lg" className="bg-gray-100 text-gray-500">
+                              <Button disabled variant="outline" size="lg" className="bg-gray-600 text-white">
                                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
                                 Sudah Dikerjakan
                               </Button>
                             ) : (
-                              <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 group-hover:scale-105 transition-transform">
+                              <Button asChild size="lg" className="bg-gradient-to-r from-green-600 to-blue-600">
                                 <Link href={`/play/quiz/${quiz.id}`}>
                                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -325,7 +325,7 @@ export default async function QuizListPage({ searchParams }: { searchParams?: Pr
 
           {/* Call to Action */}
           {allQuizzes.length > 0 && completedQuizIds.size < allQuizzes.length && (
-            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0 shadow-2xl">
+            <Card className="bg-gradient-to-r from-green-600 to-blue-600 text-white border-0 shadow-2xl">
               <CardContent className="p-8 text-center">
                 <div className="text-4xl mb-4">🚀</div>
                 <h3 className="text-2xl font-bold mb-2">Siap Untuk Tantangan?</h3>
