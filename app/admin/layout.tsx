@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
+      <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm relative z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <Link href="/admin/dashboard" className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
@@ -44,7 +44,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </div>
         </div>
       </header>
-        
+
       <main className="flex-1 max-w-6xl mx-auto px-4 py-6">{children}</main>
     </div>
   );
