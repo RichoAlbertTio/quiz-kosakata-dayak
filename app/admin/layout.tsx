@@ -2,6 +2,11 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import LogoutButton from "@/app/admin/LogoutButton";
+import NavLink from "@/app/admin/NavLink";
+import MobileNav from "@/app/admin/MobileNav";
+import Breadcrumb from "@/app/admin/Breadcrumb";
+import RouteProgress from "@/app/admin/RouteProgress";
+import StatusIndicator from "@/app/admin/StatusIndicator";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -14,36 +19,50 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm relative z-50">
+      <RouteProgress />
+
+      <header className="border-b bg-white/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-sm relative z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-6">
-            <Link href="/admin/dashboard" className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-              Dayak Quiz
+          <div className="flex items-center gap-8">
+            <Link href="/admin/dashboard" className="flex items-center gap-3 font-bold text-xl tracking-tight">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white text-lg font-bold">DQ</span>
+              </div>
+              <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Dayak Quiz</span>
             </Link>
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-              <Link href="/admin/dashboard" className="text-blue-600 font-semibold">
+            <nav className="hidden md:flex items-center gap-1">
+              <NavLink href="/admin/dashboard" icon="🏠">
                 Dashboard
-              </Link>
-              <Link href="/admin/categories" className="hover:text-blue-600 transition-colors">
+              </NavLink>
+              <NavLink href="/admin/categories" icon="📂">
                 Kategori
-              </Link>
-              <Link href="/admin/materials" className="hover:text-blue-600 transition-colors">
+              </NavLink>
+              <NavLink href="/admin/materials" icon="📚">
                 Materi
-              </Link>
-              <Link href="/leaderboard" className="hover:text-blue-600 transition-colors">
+              </NavLink>
+              <NavLink href="/admin/leaderboard" icon="🏆">
                 Leaderboard
-              </Link>
-              <Link href="/admin/quizzes" className="hover:text-blue-600 transition-colors">
+              </NavLink>
+              <NavLink href="/admin/quizzes" icon="🧠">
                 Kuis
-              </Link>
+              </NavLink>
             </nav>
           </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="opacity-70 hidden sm:inline font-medium">{displayName}</span>
+          <div className="flex items-center gap-3">
+            <StatusIndicator />
+            <div className="hidden sm:flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg border">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="font-medium text-gray-700">{displayName}</span>
+              </div>
+            </div>
             <LogoutButton />
+            <MobileNav displayName={displayName} />
           </div>
         </div>
       </header>
+
+      <Breadcrumb />
 
       <main className="flex-1 max-w-6xl mx-auto px-4 py-6">{children}</main>
     </div>

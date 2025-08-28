@@ -47,7 +47,6 @@ a {
 } */
 
 @theme inline {
-
   --radius-sm: calc(var(--radius) - 4px);
 
   --radius-md: calc(var(--radius) - 2px);
@@ -120,7 +119,6 @@ a {
 }
 
 :root {
-
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -187,7 +185,6 @@ a {
 }
 
 .dark {
-
   --background: oklch(0.145 0 0);
 
   --foreground: oklch(0.985 0 0);
@@ -258,4 +255,59 @@ a {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Admin Layout Animations */
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+.animate-progress {
+  animation: progress 1s ease-in-out;
+}
+
+/* Smooth transitions for admin navigation */
+.nav-link-transition {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link-transition:hover {
+  transform: translateY(-1px);
+}
+
+/* Mobile menu animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu-item {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.mobile-menu-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.mobile-menu-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.mobile-menu-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.mobile-menu-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.mobile-menu-item:nth-child(5) {
+  animation-delay: 0.5s;
 }
