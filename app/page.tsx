@@ -149,8 +149,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-base leading-relaxed text-gray-600 mb-6">
-                  Akses koleksi lengkap kosakata bahasa Dayak dengan penjelasan makna, 
-                  contoh penggunaan, dan audio pronunciation yang akurat dari penutur asli.
+                  Akses koleksi lengkap kosakata bahasa Dayak dengan penjelasan makna.
                 </CardDescription>
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
@@ -178,7 +177,7 @@ export default function Home() {
               <CardContent>
                 <CardDescription className="text-base leading-relaxed text-gray-600 mb-6">
                   Uji kemampuan Anda dengan berbagai jenis kuis yang menantang. 
-                  Dari pilihan ganda hingga terjemahan langsung, semuanya dirancang untuk mempercepat pembelajaran.
+                  Dari pilihan ganda, semuanya dirancang untuk mempercepat pembelajaran.
                 </CardDescription>
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">

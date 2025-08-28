@@ -16,6 +16,14 @@ const PatchBody = z.object({
   published: z.boolean().optional(),
 });
 
+const PutBody = z.object({
+  title: z.string().min(1),
+  slug: z.string().min(1),
+  contentMd: z.string().min(1),
+  categoryId: z.number().int().positive(),
+  published: z.boolean(),
+});
+
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (!session?.user?.id || session.user.role !== "ADMIN") {
@@ -23,6 +31,21 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
   const body = await req.json();
   const data = PatchBody.parse(body);
+  const { id } = await params;
+  await db
+    .update(materials)
+    .set({ ...data })
+    .where(eq(materials.id, Number(id)));
+  return new Response("OK");
+}
+
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "ADMIN") {
+    return new Response("Forbidden", { status: 403 });
+  }
+  const body = await req.json();
+  const data = PutBody.parse(body);
   const { id } = await params;
   await db
     .update(materials)

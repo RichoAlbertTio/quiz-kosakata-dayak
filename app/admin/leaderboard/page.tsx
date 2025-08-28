@@ -76,7 +76,7 @@ export default async function LeaderboardPage() {
     .limit(10);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen flex flex-col">
   
 
       <main className="flex-1 max-w-6xl mx-auto px-4 py-8">

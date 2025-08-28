@@ -25,9 +25,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-8">
             <Link href="/admin/dashboard" className="flex items-center gap-3 font-bold text-xl tracking-tight">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white text-lg font-bold">DQ</span>
-              </div>
+             
               <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Dayak Quiz</span>
             </Link>
             <nav className="hidden md:flex items-center gap-1">

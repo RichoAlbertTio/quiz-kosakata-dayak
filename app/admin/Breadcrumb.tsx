@@ -25,7 +25,15 @@ export default function Breadcrumb() {
 
   for (let i = 0; i < pathSegments.length; i++) {
     const path = "/" + pathSegments.slice(0, i + 1).join("/");
-    const label = routeLabels[path] || pathSegments[i];
+    let label = routeLabels[path] || pathSegments[i];
+
+    // Handle dynamic routes
+    if (pathSegments[i - 1] === "materials" && !isNaN(Number(pathSegments[i]))) {
+      label = "Edit Materi";
+    }
+    if (pathSegments[i - 1] === "quizzes" && !isNaN(Number(pathSegments[i]))) {
+      label = "Edit Kuis";
+    }
 
     breadcrumbItems.push({
       path,

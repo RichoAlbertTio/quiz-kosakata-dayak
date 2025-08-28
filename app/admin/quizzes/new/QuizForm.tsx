@@ -98,7 +98,7 @@ export default function QuizForm({ cats }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 p-4 relative">
+    <div className="min-h-screen  p-4 relative">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 -z-10">
         <div className="absolute top-20 left-20 w-32 h-32 border-2 border-emerald-400 rounded-full"></div>

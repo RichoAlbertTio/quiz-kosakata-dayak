@@ -33,7 +33,7 @@ export default async function AdminQuizzesPage() {
   const catMap = new Map(cats.map((c) => [c.id, c.name] as const));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-100">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto p-6 space-y-8">
         
         {/* Page Header */}
