@@ -31,13 +31,14 @@ async function requireAdmin() {
   return session;
 }
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await requireAdmin();
   } catch {
     return new Response("Forbidden", { status: 403 });
   }
-  const id = Number(params.id);
+  const { id: paramId } = await params;
+  const id = Number(paramId);
   if (!Number.isFinite(id)) return new Response("Invalid id", { status: 400 });
 
   const quiz = (await db.select().from(quizzes).where(eq(quizzes.id, id)).limit(1))[0];
@@ -62,13 +63,14 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   });
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await requireAdmin();
   } catch {
     return new Response("Forbidden", { status: 403 });
   }
-  const id = Number(params.id);
+  const { id: paramId } = await params;
+  const id = Number(paramId);
   if (!Number.isFinite(id)) return new Response("Invalid id", { status: 400 });
 
   const data = BodyZ.parse(await req.json());
@@ -92,13 +94,14 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   return NextResponse.json({ ok: true });
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await requireAdmin();
   } catch {
     return new Response("Forbidden", { status: 403 });
   }
-  const id = Number(params.id);
+  const { id: paramId } = await params;
+  const id = Number(paramId);
   if (!Number.isFinite(id)) return new Response("Invalid id", { status: 400 });
 
   await db.delete(quizzes).where(eq(quizzes.id, id));

@@ -40,14 +40,14 @@ export default async function AdminQuizzesPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8 border-0">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">
                 Manajemen Kuis
               </h1>
               <p className="text-gray-600">Kelola semua kuis dan evaluasi pembelajaran</p>
             </div>
             <Button 
               asChild
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               <Link href="/admin/quizzes/new">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@ export default async function AdminQuizzesPage() {
 
         {/* Quizzes Table */}
         <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6">
+          <div className="bg-gradient-to-r from-green-600 to-blue-600 p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold text-white flex items-center">
                 <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

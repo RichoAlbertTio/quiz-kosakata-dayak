@@ -7,12 +7,13 @@ import { eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (!session?.user?.id || session.user.role !== "ADMIN") {
     return new Response("Forbidden", { status: 403 });
   }
 
-  await db.delete(categories).where(eq(categories.id, Number(params.id)));
+  const { id } = await params;
+  await db.delete(categories).where(eq(categories.id, Number(id)));
   return new Response("OK");
 }

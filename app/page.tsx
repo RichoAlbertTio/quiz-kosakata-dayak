@@ -26,15 +26,7 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#materi" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">
-                Materi
-              </a>
-              <a href="#kuis" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">
-                Kuis
-              </a>
-              <a href="#leaderboard" className="text-gray-600 hover:text-emerald-600 transition-colors font-medium">
-                Leaderboard
-              </a>
+
              
             </div>
             <a href="/login">

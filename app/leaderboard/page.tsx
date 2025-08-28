@@ -81,7 +81,7 @@ export default async function LeaderboardPage() {
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-              {isAdmin ? "Admin" : "Quiz Dayak"}
+              {isAdmin ? "Dayak Quiz" : "Dayak Quiz"}
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
               {isAdmin ? (

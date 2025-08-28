@@ -16,25 +16,27 @@ const PatchBody = z.object({
   published: z.boolean().optional(),
 });
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (!session?.user?.id || session.user.role !== "ADMIN") {
     return new Response("Forbidden", { status: 403 });
   }
   const body = await req.json();
   const data = PatchBody.parse(body);
+  const { id } = await params;
   await db
     .update(materials)
     .set({ ...data })
-    .where(eq(materials.id, Number(params.id)));
+    .where(eq(materials.id, Number(id)));
   return new Response("OK");
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (!session?.user?.id || session.user.role !== "ADMIN") {
     return new Response("Forbidden", { status: 403 });
   }
-  await db.delete(materials).where(eq(materials.id, Number(params.id)));
+  const { id } = await params;
+  await db.delete(materials).where(eq(materials.id, Number(id)));
   return new Response("OK");
 }

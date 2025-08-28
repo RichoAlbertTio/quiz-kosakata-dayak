@@ -151,7 +151,7 @@ export default async function AdminCategoriesPage() {
 
         {/* Stats Card */}
         {list.length > 0 && (
-          <Card className="shadow-lg border-0 bg-gradient-to-r from-purple-500 to-pink-500">
+          <Card className="shadow-lg border-0 bg-gradient-to-r from-green-600 to-blue-600">
             <CardContent className="p-6">
               <div className="flex items-center justify-between text-white">
                 <div>

@@ -8,11 +8,12 @@ import Form from "./Form";
 
 export const dynamic = "force-dynamic";
 
-export default async function EditQuizPage({ params }: { params: { id: string } }) {
+export default async function EditQuizPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (!session || session?.user?.role !== "ADMIN") redirect("/login?reason=admin");
 
-  const id = Number(params.id);
+  const { id: paramId } = await params;
+  const id = Number(paramId);
   const quiz = (await db.select().from(quizzes).where(eq(quizzes.id, id)).limit(1))[0];
   if (!quiz) return <div className="p-6">Kuis tidak ditemukan.</div>;
 
