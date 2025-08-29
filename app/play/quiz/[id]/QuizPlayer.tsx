@@ -122,16 +122,13 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        
         {/* Progress Section */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-3">
             <span className="text-sm font-medium text-gray-600">
               Question {currentQuestion + 1} of {quiz.questions.length}
             </span>
-            <span className="text-sm font-medium text-blue-600">
-              {Math.round(((currentQuestion + 1) / quiz.questions.length) * 100)}% Complete
-            </span>
+            <span className="text-sm font-medium text-blue-600">{Math.round(((currentQuestion + 1) / quiz.questions.length) * 100)}% Complete</span>
           </div>
           <div className="w-full bg-white rounded-full h-3 shadow-inner">
             <div
@@ -146,9 +143,7 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
         {/* Question Card */}
         <Card className="mb-8 shadow-xl border-0 overflow-hidden">
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
-            <CardTitle className="text-xl font-bold text-white leading-relaxed">
-              {currentQ.question}
-            </CardTitle>
+            <CardTitle className="text-xl font-bold text-white leading-relaxed">{currentQ.question}</CardTitle>
           </div>
           <CardContent className="p-8">
             <div className="space-y-4">
@@ -157,17 +152,11 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
                   key={option.id}
                   onClick={() => handleAnswerSelect(index)}
                   className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg ${
-                    selectedAnswers[currentQuestion] === index 
-                      ? "border-blue-500 bg-gradient-to-r from-blue-50 to-blue-100 shadow-md" 
-                      : "border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50"
+                    selectedAnswers[currentQuestion] === index ? "border-blue-500 bg-gradient-to-r from-blue-50 to-blue-100 shadow-md" : "border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50"
                   }`}
                 >
                   <div className="flex items-center">
-                    <span className={`flex items-center justify-center w-8 h-8 rounded-full font-bold mr-4 transition-colors ${
-                      selectedAnswers[currentQuestion] === index
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-100 text-gray-600"
-                    }`}>
+                    <span className={`flex items-center justify-center w-8 h-8 rounded-full font-bold mr-4 transition-colors ${selectedAnswers[currentQuestion] === index ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-600"}`}>
                       {String.fromCharCode(65 + index)}
                     </span>
                     <span className="text-gray-800 font-medium">{option.text}</span>
@@ -180,12 +169,7 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
 
         {/* Navigation */}
         <div className="flex justify-between items-center mb-8">
-          <Button 
-            variant="outline" 
-            onClick={handlePrevious} 
-            disabled={currentQuestion === 0}
-            className="px-8 py-3 font-medium hover:bg-gray-50 disabled:opacity-50"
-          >
+          <Button variant="outline" onClick={handlePrevious} disabled={currentQuestion === 0} className="px-8 py-3 font-medium hover:bg-gray-50 disabled:opacity-50">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
@@ -194,22 +178,14 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
 
           <div className="space-x-3">
             {!isLastQuestion ? (
-              <Button 
-                onClick={handleNext} 
-                disabled={!hasAnsweredCurrent}
-                className="px-8 py-3 font-medium bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:opacity-50"
-              >
+              <Button onClick={handleNext} disabled={!hasAnsweredCurrent} className="px-8 py-3 font-medium bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:opacity-50">
                 Next
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Button>
             ) : (
-              <Button 
-                onClick={handleSubmit} 
-                disabled={!hasAnsweredCurrent || isSubmitting} 
-                className="px-8 py-3 font-medium bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:opacity-50"
-              >
+              <Button onClick={handleSubmit} disabled={!hasAnsweredCurrent || isSubmitting} className="px-8 py-3 font-medium bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:opacity-50">
                 {isSubmitting ? (
                   <>
                     <svg className="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
@@ -248,10 +224,10 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
                   key={index}
                   onClick={() => setCurrentQuestion(index)}
                   className={`w-10 h-10 rounded-lg text-sm font-bold transition-all duration-200 transform hover:scale-110 ${
-                    index === currentQuestion 
-                      ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg" 
-                      : selectedAnswers[index] !== -1 
-                      ? "bg-gradient-to-r from-green-400 to-green-500 text-white shadow-md hover:shadow-lg" 
+                    index === currentQuestion
+                      ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                      : selectedAnswers[index] !== -1
+                      ? "bg-gradient-to-r from-green-400 to-green-500 text-white shadow-md hover:shadow-lg"
                       : "bg-gray-100 text-gray-600 border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-200"
                   }`}
                 >

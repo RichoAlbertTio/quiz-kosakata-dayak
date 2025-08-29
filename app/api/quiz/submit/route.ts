@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   const allChoices = qIds.length ? await db.select().from(choices).where(inArray(choices.questionId, qIds)) : [];
 
   // Create a map of choices by ID for quick lookup
-  const choiceMap = new Map(allChoices.map(choice => [choice.id, choice]));
+  const choiceMap = new Map(allChoices.map((choice) => [choice.id, choice]));
 
   let score = 0;
   const rows = qs.map((q, index) => {
