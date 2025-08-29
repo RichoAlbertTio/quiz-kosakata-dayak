@@ -6,10 +6,16 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+interface Choice {
+  id: number;
+  text: string;
+  index: number;
+}
+
 interface Question {
   id: number;
   question: string;
-  options: string[];
+  options: Choice[];
   correctAnswer: number;
 }
 
@@ -54,6 +60,13 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
     setError(null);
 
     try {
+      // Convert selected answer indices to choice IDs
+      const choiceIds = selectedAnswers.map((answerIndex, questionIndex) => {
+        if (answerIndex === -1) return null;
+        const question = quiz.questions[questionIndex];
+        return question.options[answerIndex].id;
+      });
+
       const response = await fetch(`/api/quiz/submit`, {
         method: "POST",
         headers: {
@@ -61,7 +74,7 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
         },
         body: JSON.stringify({
           quizId: quiz.id,
-          answers: selectedAnswers,
+          choiceIds: choiceIds,
         }),
       });
 
@@ -141,7 +154,7 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
             <div className="space-y-4">
               {currentQ.options.map((option, index) => (
                 <button
-                  key={index}
+                  key={option.id}
                   onClick={() => handleAnswerSelect(index)}
                   className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg ${
                     selectedAnswers[currentQuestion] === index 
@@ -157,7 +170,7 @@ export default function QuizPlayer({ quiz }: QuizPlayerProps) {
                     }`}>
                       {String.fromCharCode(65 + index)}
                     </span>
-                    <span className="text-gray-800 font-medium">{option}</span>
+                    <span className="text-gray-800 font-medium">{option.text}</span>
                   </div>
                 </button>
               ))}

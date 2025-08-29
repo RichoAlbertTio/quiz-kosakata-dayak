@@ -62,7 +62,11 @@ export default async function QuizPlayPage({ params }: { params: Promise<{ id: s
       return {
         id: q.id,
         question: q.prompt,
-        options: questionChoices.map((choice) => choice.text),
+        options: questionChoices.map((choice, index) => ({
+          id: choice.id,
+          text: choice.text,
+          index: index
+        })),
         correctAnswer: 0, // This will be handled during submission
       };
     }),

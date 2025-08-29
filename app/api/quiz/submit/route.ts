@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 const Payload = z.object({
   quizId: z.number().int().positive(),
-  answers: z.array(z.number()).min(1), // Array of answer indices
+  choiceIds: z.array(z.number().nullable()).min(1), // Array of choice IDs (can be null for unanswered)
 });
 
 export async function POST(req: NextRequest) {
@@ -27,38 +27,33 @@ export async function POST(req: NextRequest) {
   const qs = await db.select().from(questions).where(eq(questions.quizId, data.quizId));
   const qIds = qs.map((q) => q.id);
 
-  if (qIds.length !== data.answers.length) {
+  if (qIds.length !== data.choiceIds.length) {
     return new Response("Answer count mismatch", { status: 400 });
   }
 
   const allChoices = qIds.length ? await db.select().from(choices).where(inArray(choices.questionId, qIds)) : [];
 
-  // Create a map of correct answers for each question
-  const correctAnswers = new Map<number, number>(); // questionId -> correct choice index
-  qs.forEach((q) => {
-    const questionChoices = allChoices.filter((ch) => ch.questionId === q.id);
-    const correctChoice = questionChoices.find((ch) => ch.isCorrect);
-    if (correctChoice) {
-      // Find the index of the correct choice among the shuffled choices
-      const correctIndex = questionChoices.findIndex((ch) => ch.id === correctChoice.id);
-      correctAnswers.set(q.id, correctIndex);
-    }
-  });
+  // Create a map of choices by ID for quick lookup
+  const choiceMap = new Map(allChoices.map(choice => [choice.id, choice]));
 
   let score = 0;
   const rows = qs.map((q, index) => {
-    const userAnswer = data.answers[index];
-    const correctAnswer = correctAnswers.get(q.id) ?? -1;
-    const isCorrect = userAnswer === correctAnswer;
-    if (isCorrect) score++;
+    const userChoiceId = data.choiceIds[index];
+    let isCorrect = false;
+    let choiceId = 0;
 
-    // Get the actual choice ID based on the user's answer index
-    const questionChoices = allChoices.filter((ch) => ch.questionId === q.id);
-    const selectedChoice = questionChoices[userAnswer];
+    if (userChoiceId !== null) {
+      const selectedChoice = choiceMap.get(userChoiceId);
+      if (selectedChoice && selectedChoice.questionId === q.id) {
+        choiceId = selectedChoice.id;
+        isCorrect = selectedChoice.isCorrect;
+        if (isCorrect) score++;
+      }
+    }
 
     return {
       questionId: q.id,
-      choiceId: selectedChoice?.id ?? 0,
+      choiceId,
       isCorrect,
     };
   });
