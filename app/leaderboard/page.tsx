@@ -2,7 +2,7 @@
 import { db } from "@/lib/db";
 import { quizAttempts, users, quizzes } from "@/lib/db/schema";
 import { asc, desc, eq } from "drizzle-orm";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -141,18 +141,14 @@ export default async function LeaderboardPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
                 </svg>
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                Leaderboard
-              </h1>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Leaderboard</h1>
               <div className="p-3 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 3l-14 9 14 9V3z" />
                 </svg>
               </div>
             </div>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Kompetisi seru antar peserta! Lihat siapa yang berhasil meraih skor tertinggi dengan waktu tercepat.
-            </p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Kompetisi seru antar peserta! Lihat siapa yang berhasil meraih skor tertinggi dengan waktu tercepat.</p>
           </div>
 
           {/* Top 3 Podium */}
@@ -214,12 +210,8 @@ export default async function LeaderboardPage() {
           {/* Full Leaderboard Table */}
           <Card className="shadow-xl border-0 overflow-hidden">
             <CardHeader className="bg-gradient-to-r from-green-600 to-blue-600 text-white">
-              <CardTitle className="text-2xl font-bold text-center">
-                🏆 Rangking Lengkap
-              </CardTitle>
-              <CardDescription className="text-blue-100 text-center">
-                Top 10 skor terbaru di semua kuis
-              </CardDescription>
+              <CardTitle className="text-2xl font-bold text-center">🏆 Rangking Lengkap</CardTitle>
+              <CardDescription className="text-blue-100 text-center">Top 10 skor terbaru di semua kuis</CardDescription>
             </CardHeader>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
@@ -248,29 +240,16 @@ export default async function LeaderboardPage() {
                       </TableRow>
                     ) : (
                       rows.map((r, i) => (
-                        <TableRow 
-                          key={r.id} 
-                          className={`hover:bg-slate-50 transition-colors ${
-                            i < 3 ? 'bg-gradient-to-r from-yellow-50/30 to-orange-50/30' : ''
-                          }`}
-                        >
+                        <TableRow key={r.id} className={`hover:bg-slate-50 transition-colors ${i < 3 ? "bg-gradient-to-r from-yellow-50/30 to-orange-50/30" : ""}`}>
                           <TableCell className="text-center font-bold">
                             <div className="flex items-center justify-center gap-2">
-                              {getRankIcon(i + 1) && (
-                                <span className="text-2xl">{getRankIcon(i + 1)}</span>
-                              )}
-                              <span className={`text-lg ${i < 3 ? 'text-yellow-600 font-bold' : 'text-slate-600'}`}>
-                                {i + 1}
-                              </span>
+                              {getRankIcon(i + 1) && <span className="text-2xl">{getRankIcon(i + 1)}</span>}
+                              <span className={`text-lg ${i < 3 ? "text-yellow-600 font-bold" : "text-slate-600"}`}>{i + 1}</span>
                             </div>
                           </TableCell>
                           <TableCell className="font-semibold">
                             <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${
-                                i === 0 ? 'bg-yellow-400' : 
-                                i === 1 ? 'bg-slate-400' : 
-                                i === 2 ? 'bg-amber-600' : 'bg-blue-400'
-                              }`}></div>
+                              <div className={`w-3 h-3 rounded-full ${i === 0 ? "bg-yellow-400" : i === 1 ? "bg-slate-400" : i === 2 ? "bg-amber-600" : "bg-blue-400"}`}></div>
                               {r.userName || r.userEmail}
                             </div>
                           </TableCell>
@@ -282,22 +261,17 @@ export default async function LeaderboardPage() {
                           <TableCell className="font-medium text-slate-700">{r.quizTitle}</TableCell>
                           <TableCell className="text-center">
                             <div className="font-bold text-lg text-blue-600">
-                              {r.score}<span className="text-sm text-slate-500">/{r.total}</span>
+                              {r.score}
+                              <span className="text-sm text-slate-500">/{r.total}</span>
                             </div>
                           </TableCell>
                           <TableCell className="text-center">
-                            <div className={`font-bold ${
-                              getScorePercentage(r.score, r.total) >= 80 ? 'text-green-600' :
-                              getScorePercentage(r.score, r.total) >= 60 ? 'text-yellow-600' :
-                              'text-red-600'
-                            }`}>
+                            <div className={`font-bold ${getScorePercentage(r.score, r.total) >= 80 ? "text-green-600" : getScorePercentage(r.score, r.total) >= 60 ? "text-yellow-600" : "text-red-600"}`}>
                               {getScorePercentage(r.score, r.total)}%
                             </div>
                           </TableCell>
-                          
-                          <TableCell className="text-center text-sm text-slate-600">
-                            {fmtDate(r.createdAt as unknown as string)}
-                          </TableCell>
+
+                          <TableCell className="text-center text-sm text-slate-600">{fmtDate(r.createdAt as unknown as string)}</TableCell>
                         </TableRow>
                       ))
                     )}
@@ -318,13 +292,10 @@ export default async function LeaderboardPage() {
               </Card>
               <Card className="text-center bg-gradient-to-br from-green-50 to-green-100 border-green-200">
                 <CardContent className="p-6">
-                  <div className="text-3xl font-bold text-green-600 mb-2">
-                    {Math.round(rows.reduce((acc, r) => acc + getScorePercentage(r.score, r.total), 0) / rows.length)}%
-                  </div>
+                  <div className="text-3xl font-bold text-green-600 mb-2">{Math.round(rows.reduce((acc, r) => acc + getScorePercentage(r.score, r.total), 0) / rows.length)}%</div>
                   <div className="text-sm font-medium text-green-700">Rata-rata Skor</div>
                 </CardContent>
               </Card>
-             
             </div>
           )}
         </div>

@@ -28,12 +28,7 @@ function Search({ q }: { q?: string }) {
         <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <Input 
-          name="q" 
-          placeholder="Cari materi..." 
-          defaultValue={q ?? ""} 
-          className="pl-10 bg-white/80 backdrop-blur border-slate-300 focus:border-blue-400 focus:ring-blue-400"
-        />
+        <Input name="q" placeholder="Cari materi..." defaultValue={q ?? ""} className="pl-10 bg-white/80 backdrop-blur border-slate-300 focus:border-blue-400 focus:ring-blue-400" />
       </div>
     </form>
   );
@@ -76,7 +71,7 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <Link href={isAdmin ? "/admin" : "/dashboard"} className="font-bold text-xl tracking-tight bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-              {isAdmin ? "Admin" : "Quiz Dayak"}
+              {isAdmin ? "Admin" : "Dayak Quiz"}
             </Link>
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
               {isAdmin ? (
@@ -133,16 +128,17 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
             <div className="flex items-center justify-center gap-3">
               <div className="p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-full">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
                 </svg>
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                Materi Pembelajaran
-              </h1>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Materi Pembelajaran</h1>
             </div>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Jelajahi koleksi materi pembelajaran Bahasa Dayak yang tersedia untuk memperdalam pemahamanmu
-            </p>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Jelajahi koleksi materi pembelajaran Bahasa Dayak yang tersedia untuk memperdalam pemahamanmu</p>
           </div>
 
           {/* Search and Filter Section */}
@@ -154,31 +150,32 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
                 </div>
                 <div className="flex items-center gap-2 text-sm text-slate-600">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                    />
                   </svg>
                   <span>Filter:</span>
                 </div>
               </div>
-              
+
               <div className="flex gap-2 flex-wrap mt-4">
-                <Link 
-                  href="/materials" 
+                <Link
+                  href="/materials"
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    !cat 
-                      ? "bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg" 
-                      : "bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:border-slate-400"
+                    !cat ? "bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg" : "bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:border-slate-400"
                   }`}
                 >
                   Semua Kategori
                 </Link>
                 {cats.map((c) => (
-                  <Link 
-                    key={c.id} 
-                    href={`/materials?cat=${c.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`} 
+                  <Link
+                    key={c.id}
+                    href={`/materials?cat=${c.slug}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      cat === c.slug 
-                        ? "bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg" 
-                        : "bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:border-slate-400"
+                      cat === c.slug ? "bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg" : "bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:border-slate-400"
                     }`}
                   >
                     {c.name}
@@ -192,7 +189,9 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <span className="text-sm">Hasil pencarian untuk: <strong>"{q}"</strong></span>
+                    <span className="text-sm">
+                      Hasil pencarian untuk: <strong>&ldquo;{q}&rdquo;</strong>
+                    </span>
                   </div>
                 </div>
               )}
@@ -202,14 +201,8 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
           {/* Results Section */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-slate-700">
-                {rows.length > 0 ? `Ditemukan ${rows.length} materi` : "Materi"}
-              </h2>
-              {rows.length > 0 && (
-                <div className="text-sm text-slate-500">
-                  Diurutkan berdasarkan tanggal terbaru
-                </div>
-              )}
+              <h2 className="text-xl font-semibold text-slate-700">{rows.length > 0 ? `Ditemukan ${rows.length} materi` : "Materi"}</h2>
+              {rows.length > 0 && <div className="text-sm text-slate-500">Diurutkan berdasarkan tanggal terbaru</div>}
             </div>
 
             <div className="grid gap-4 md:gap-6">
@@ -217,30 +210,18 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
                 <Card className="shadow-lg">
                   <CardContent className="p-12 text-center">
                     <div className="text-6xl mb-4 opacity-50">📚</div>
-                    <h3 className="text-xl font-semibold text-slate-700 mb-2">
-                      {q ? "Tidak ada hasil yang ditemukan" : "Belum ada materi"}
-                    </h3>
-                    <p className="text-slate-500 mb-6">
-                      {q 
-                        ? `Coba gunakan kata kunci lain atau hapus filter pencarian.`
-                        : "Materi pembelajaran sedang dalam proses pengembangan."
-                      }
-                    </p>
+                    <h3 className="text-xl font-semibold text-slate-700 mb-2">{q ? "Tidak ada hasil yang ditemukan" : "Belum ada materi"}</h3>
+                    <p className="text-slate-500 mb-6">{q ? `Coba gunakan kata kunci lain atau hapus filter pencarian.` : "Materi pembelajaran sedang dalam proses pengembangan."}</p>
                     {q && (
                       <Link href="/materials">
-                        <Button variant="outline">
-                          Lihat Semua Materi
-                        </Button>
+                        <Button variant="outline">Lihat Semua Materi</Button>
                       </Link>
                     )}
                   </CardContent>
                 </Card>
               ) : (
                 rows.map((m, index) => (
-                  <Card 
-                    key={m.id} 
-                    className="group hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] bg-white/80 backdrop-blur border-0 shadow-lg"
-                  >
+                  <Card key={m.id} className="group hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] bg-white/80 backdrop-blur border-0 shadow-lg">
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between gap-4">
                         <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
@@ -252,26 +233,19 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
                             </div>
                             <div className="flex-1">
                               {m.title}
-                              <div className="text-sm text-slate-500 font-normal mt-1">
-                                Dipublikasikan {fmtDate(m.createdAt as unknown as string)}
-                              </div>
+                              <div className="text-sm text-slate-500 font-normal mt-1">Dipublikasikan {fmtDate(m.createdAt as unknown as string)}</div>
                             </div>
                           </Link>
                         </CardTitle>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-slate-400">
-                            #{String(index + 1).padStart(2, '0')}
-                          </div>
+                          <div className="text-lg font-bold text-slate-400">#{String(index + 1).padStart(2, "0")}</div>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <Badge 
-                            variant="secondary" 
-                            className="bg-gradient-to-r from-green-100 to-blue-100 text-green-700 border-green-200"
-                          >
+                          <Badge variant="secondary" className="bg-gradient-to-r from-green-100 to-blue-100 text-green-700 border-green-200">
                             <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                             </svg>
@@ -300,9 +274,7 @@ export default async function MaterialsPage({ searchParams }: { searchParams?: P
               <CardContent className="p-8 text-center">
                 <div className="text-4xl mb-4">🎯</div>
                 <h3 className="text-2xl font-bold mb-2">Siap untuk tantangan?</h3>
-                <p className="text-green-100 mb-6">
-                  Setelah mempelajari materi, uji pemahamanmu dengan mengerjakan kuis!
-                </p>
+                <p className="text-green-100 mb-6">Setelah mempelajari materi, uji pemahamanmu dengan mengerjakan kuis!</p>
                 <Link href="/quiz">
                   <Button size="lg" variant="secondary" className="bg-white text-green-600 hover:bg-gray-100 font-semibold">
                     Kerjakan Kuis Sekarang

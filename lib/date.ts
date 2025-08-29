@@ -1,7 +1,13 @@
-import { TZDate } from '@date-fns/tz'
-
-const timeZone = 'Asia/Jakarta'
+const timeZone = "Asia/Jakarta";
 
 export function formatLocal(date: Date | string, timezone: string = timeZone) {
-  return new TZDate(new Date(date), timezone)
+  const dateObj = new Date(date);
+  return new Intl.DateTimeFormat("id-ID", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(dateObj);
 }

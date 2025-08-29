@@ -10,16 +10,18 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminQuizzesPage() {
   // List all quizzes with category name
-  const rows = await db.select({
-    id: quizzes.id,
-    title: quizzes.title,
-    published: quizzes.published,
-    createdAt: quizzes.createdAt,
-    categoryId: quizzes.categoryId
-  }).from(quizzes);
+  const rows = await db
+    .select({
+      id: quizzes.id,
+      title: quizzes.title,
+      published: quizzes.published,
+      createdAt: quizzes.createdAt,
+      categoryId: quizzes.categoryId,
+    })
+    .from(quizzes);
 
   // Get category names in one query (simple approach; could join but keep types simple)
-  const catIds = Array.from(new Set(rows.map((r) => r.categoryId)));
+  const catIds = Array.from(new Set(rows.map((r) => r.categoryId).filter((id): id is number => id !== null)));
   const cats = catIds.length ? await db.select({ id: categories.id, name: categories.name }).from(categories).where(eq(categories.id, catIds[0])) : [];
 
   // If multiple categories, fetch them all individually
@@ -35,17 +37,14 @@ export default async function AdminQuizzesPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto p-6 space-y-8">
-        
         {/* Page Header */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border-0">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                Manajemen Kuis
-              </h1>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">Manajemen Kuis</h1>
               <p className="text-gray-600">Kelola semua kuis dan evaluasi pembelajaran</p>
             </div>
-            <Button 
+            <Button
               asChild
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
@@ -79,7 +78,7 @@ export default async function AdminQuizzesPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Published</p>
-                <p className="text-2xl font-bold text-gray-900">{rows.filter(q => q.published).length}</p>
+                <p className="text-2xl font-bold text-gray-900">{rows.filter((q) => q.published).length}</p>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +92,7 @@ export default async function AdminQuizzesPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Draft</p>
-                <p className="text-2xl font-bold text-gray-900">{rows.filter(q => !q.published).length}</p>
+                <p className="text-2xl font-bold text-gray-900">{rows.filter((q) => !q.published).length}</p>
               </div>
               <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,9 +113,7 @@ export default async function AdminQuizzesPage() {
                 </svg>
                 Daftar Kuis
               </h2>
-              <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-medium text-white">
-                {rows.length} kuis
-              </span>
+              <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-medium text-white">{rows.length} kuis</span>
             </div>
           </div>
 
@@ -129,7 +126,7 @@ export default async function AdminQuizzesPage() {
               </div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Belum ada kuis</h3>
               <p className="text-gray-500 mb-6">Mulai dengan membuat kuis pertama untuk evaluasi pembelajaran.</p>
-              <Button 
+              <Button
                 asChild
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
               >
@@ -188,56 +185,41 @@ export default async function AdminQuizzesPage() {
                       <TableRow key={q.id} className="hover:bg-purple-50/30 transition-colors duration-200 group">
                         <TableCell className="py-4">
                           <div className="flex items-center">
-                            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-4 flex-shrink-0">
-                              {index + 1}
-                            </div>
+                            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-4 flex-shrink-0">{index + 1}</div>
                             <div>
-                              <div className="font-semibold text-gray-900 group-hover:text-purple-700 transition-colors duration-200">
-                                {q.title}
-                              </div>
+                              <div className="font-semibold text-gray-900 group-hover:text-purple-700 transition-colors duration-200">{q.title}</div>
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200">
                             <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div>
-                            {catMap.get(q.categoryId) ?? q.categoryId}
+                            {q.categoryId ? catMap.get(q.categoryId) ?? `ID: ${q.categoryId}` : "Tidak ada kategori"}
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${
-                            q.published 
-                              ? "bg-green-100 text-green-800 border-green-200" 
-                              : "bg-yellow-100 text-yellow-800 border-yellow-200"
-                          }`}>
-                            <div className={`w-2 h-2 rounded-full mr-2 ${
-                              q.published ? "bg-green-500" : "bg-yellow-500"
-                            }`}></div>
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${q.published ? "bg-green-100 text-green-800 border-green-200" : "bg-yellow-100 text-yellow-800 border-yellow-200"}`}>
+                            <div className={`w-2 h-2 rounded-full mr-2 ${q.published ? "bg-green-500" : "bg-yellow-500"}`}></div>
                             {q.published ? "Published" : "Draft"}
                           </span>
                         </TableCell>
                         <TableCell>
                           <div className="text-sm text-gray-600">
-                            {new Date(q.createdAt!).toLocaleDateString('id-ID', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric'
+                            {new Date(q.createdAt!).toLocaleDateString("id-ID", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
                             })}
                           </div>
                           <div className="text-xs text-gray-400">
-                            {new Date(q.createdAt!).toLocaleTimeString('id-ID', {
-                              hour: '2-digit',
-                              minute: '2-digit'
+                            {new Date(q.createdAt!).toLocaleTimeString("id-ID", {
+                              hour: "2-digit",
+                              minute: "2-digit",
                             })}
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            asChild
-                            className="hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-all duration-200 transform hover:scale-105"
-                          >
+                          <Button variant="outline" size="sm" asChild className="hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-all duration-200 transform hover:scale-105">
                             <Link href={`/admin/quizzes/${q.id}`} className="flex items-center">
                               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

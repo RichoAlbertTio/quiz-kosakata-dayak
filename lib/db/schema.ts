@@ -42,9 +42,7 @@ export const materials = pgTable("materials", {
   slug: varchar("slug", { length: 180 }).notNull().unique(),
   contentMd: text("content_md").notNull(),
   published: boolean("published").notNull().default(true),
-  categoryId: integer("category_id")
-    .notNull()
-    .references(() => categories.id, { onDelete: "set null" as any }),
+  categoryId: integer("category_id").references(() => categories.id, { onDelete: "set null" }),
   authorId: integer("author_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -56,9 +54,7 @@ export const quizzes = pgTable("quizzes", {
   title: varchar("title", { length: 180 }).notNull(),
   description: text("description"),
   published: boolean("published").notNull().default(true),
-  categoryId: integer("category_id")
-    .notNull()
-    .references(() => categories.id, { onDelete: "set null" as any }),
+  categoryId: integer("category_id").references(() => categories.id, { onDelete: "set null" }),
   authorId: integer("author_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),

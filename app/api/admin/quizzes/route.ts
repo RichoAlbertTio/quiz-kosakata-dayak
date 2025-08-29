@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ id: quiz.id });
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   // Optional: list quizzes (admin only)
   const session = await auth();
   if (!session?.user?.id || session.user.role !== "ADMIN") {

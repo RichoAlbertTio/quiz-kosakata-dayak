@@ -9,11 +9,12 @@ import EditForm from "./EditForm";
 
 export const dynamic = "force-dynamic";
 
-export default async function EditMaterialPage({ params }: { params: { id: string } }) {
+export default async function EditMaterialPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
   if (session?.user?.role !== "ADMIN") redirect("/login?reason=admin");
 
-  const id = Number(params.id);
+  const { id: idStr } = await params;
+  const id = Number(idStr);
   if (isNaN(id)) notFound();
 
   // Get material data

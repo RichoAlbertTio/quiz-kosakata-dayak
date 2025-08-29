@@ -27,7 +27,7 @@ export default async function EditQuizPage({ params }: { params: Promise<{ id: s
     id: quiz.id,
     title: quiz.title,
     description: quiz.description ?? "",
-    categoryId: quiz.categoryId,
+    categoryId: quiz.categoryId ?? 1, // Default to category 1 if null
     published: quiz.published,
     questions: qs.map((q) => ({
       prompt: q.prompt,
