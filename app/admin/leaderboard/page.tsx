@@ -2,11 +2,11 @@
 import { db } from "@/lib/db";
 import { quizAttempts, users, quizzes } from "@/lib/db/schema";
 import { asc, desc, eq } from "drizzle-orm";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+// import Link from "next/link";
+// import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -50,8 +50,8 @@ export default async function LeaderboardPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const displayName = session.user.name || session.user.email || "Pengguna";
-  const isAdmin = session.user.role === "ADMIN";
+  // const displayName = session.user.name || session.user.email || "Pengguna";
+  // const isAdmin = session.user.role === "ADMIN";
 
   const rows = await db
     .select({
